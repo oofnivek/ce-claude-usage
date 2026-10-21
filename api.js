@@ -1,4 +1,4 @@
-import { setIcon } from "./icon.js";
+import { setIcon, colorFor } from "./icon.js";
 
 const BASE = "https://claude.ai";
 
@@ -31,11 +31,11 @@ export async function fetchUsage() {
 export async function updateBadge(usage) {
   const pct = usage?.five_hour?.utilization;
   await chrome.action.setBadgeText({ text: "" });
-  await setIcon(typeof pct === "number" ? `${Math.round(pct)}` : "");
+  await setIcon(typeof pct === "number" ? `${Math.round(pct)}` : "", colorFor(pct));
 }
 
 export async function recordError(err) {
   await chrome.storage.local.set({ lastError: String(err?.message ?? err) });
   await chrome.action.setBadgeText({ text: "" });
-  await setIcon("!");
+  await setIcon("!", colorFor(null));
 }
