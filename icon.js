@@ -24,24 +24,21 @@ function drawStarburst(ctx, size, color) {
     ctx.fill();
   });
   ctx.beginPath();
-  ctx.arc(c, c, r * 0.22, 0, Math.PI * 2);
+  // Solid disc behind the number so the rays don't break up the digits.
+  ctx.arc(c, c, r * 0.62, 0, Math.PI * 2);
   ctx.fill();
 }
 
 function drawText(ctx, size, text) {
   if (!text) return;
   // Shrink the font for wider strings like "100" so it stays inside the icon.
-  const scale = text.length >= 3 ? 0.56 : 0.78;
-  ctx.font = `bold ${Math.round(size * scale)}px system-ui, Arial, sans-serif`;
+  const scale = text.length >= 3 ? 0.5 : 0.72;
+  ctx.font = `900 ${Math.round(size * scale)}px "Arial Black", "Segoe UI Black", Arial, sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const x = size / 2, y = size / 2 + size * 0.04;
-  ctx.lineJoin = "round";
-  ctx.lineWidth = Math.max(2, size * 0.16);
-  ctx.strokeStyle = "rgba(20, 20, 19, 0.9)";
-  ctx.strokeText(text, x, y);
-  ctx.fillStyle = "#ffffff";
-  ctx.fillText(text, x, y);
+  // Solid dark digits, no outline: an outline at 16px makes the glyphs look hollow.
+  ctx.fillStyle = "#141413";
+  ctx.fillText(text, Math.round(size / 2), Math.round(size / 2 + size * 0.04));
 }
 
 export async function setIcon(text, color = CLAUDE_ORANGE) {
