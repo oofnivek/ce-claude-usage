@@ -1,6 +1,6 @@
 # Claude Usage (Chrome extension)
 
-Shows your claude.ai plan usage (current session and weekly limits) in a toolbar popup, with the current-session % on the icon badge. Refreshes every 5 minutes.
+Shows your claude.ai plan usage (current session and weekly limits) in a toolbar popup, with the current-session % drawn over a Claude starburst on the toolbar icon. Refreshes every 5 minutes.
 
 ## Install
 1. Open `chrome://extensions` and turn on **Developer mode**.

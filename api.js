@@ -1,3 +1,5 @@
+import { setIcon } from "./icon.js";
+
 const BASE = "https://claude.ai";
 
 async function getJson(path) {
@@ -28,17 +30,12 @@ export async function fetchUsage() {
 
 export async function updateBadge(usage) {
   const pct = usage?.five_hour?.utilization;
-  if (typeof pct !== "number") {
-    await chrome.action.setBadgeText({ text: "" });
-    return;
-  }
-  await chrome.action.setBadgeText({ text: `${Math.round(pct)}` });
-  await chrome.action.setBadgeBackgroundColor({ color: pct >= 90 ? "#c0392b" : pct >= 70 ? "#d68910" : "#2e7d32" });
-  await chrome.action.setBadgeTextColor?.({ color: "#ffffff" });
+  await chrome.action.setBadgeText({ text: "" });
+  await setIcon(typeof pct === "number" ? `${Math.round(pct)}` : "");
 }
 
 export async function recordError(err) {
   await chrome.storage.local.set({ lastError: String(err?.message ?? err) });
-  await chrome.action.setBadgeText({ text: "!" });
-  await chrome.action.setBadgeBackgroundColor({ color: "#777777" });
+  await chrome.action.setBadgeText({ text: "" });
+  await setIcon("!");
 }
